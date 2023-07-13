@@ -44,8 +44,16 @@
     (b/install opts))
   opts)
 
-(defn deploy "Deploy the JAR to Clojars." [opts]
-  (let [{:keys [jar-file] :as opts} (jar-opts opts)]
-    (dd/deploy {:installer :remote :artifact (b/resolve-path jar-file)
-                :pom-file (b/pom-path (select-keys opts [:lib :class-dir]))}))
+(defn deploy "Deploy the JAR to Clojars."
+  [{:keys [username password] :as opts}]
+  (let [opts (-> opts
+                 (dissoc :username :password)
+                 (assoc :repository (-> dd/default-repo-settings
+                                        (assoc-in ["clojars" :username] (str username))
+                                        (assoc-in ["clojars" :password] (str password)))))
+        {:keys [jar-file repository] :as opts} (jar-opts opts)]
+    (dd/deploy
+     (cond-> {:installer :remote :artifact (b/resolve-path jar-file)
+              :pom-file (b/pom-path (select-keys opts [:lib :class-dir]))}
+       (map? repository) (assoc :repository repository))))
   opts)
