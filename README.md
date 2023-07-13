@@ -5,7 +5,7 @@ This is a small, zero-dependency library that allows you to call mathematica.
 ## Coordinates
 
 ```
-com.github.crinklywrappr/wolframatte {:mvn/version "1.0.X"}
+com.github.crinklywrappr/wolframatte {:mvn/version "1.0.6"}
 ```
 
 ## Why?
