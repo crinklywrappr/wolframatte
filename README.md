@@ -5,7 +5,7 @@ This is a small, zero-dependency library that allows you to call mathematica.
 ## Coordinates
 
 ```
-com.github.crinklywrappr/wolframatte {:mvn/version "1.0.6"}
+com.github.crinklywrappr/wolframatte {:mvn/version "1.0.7"}
 ```
 
 ## Why?
@@ -156,10 +156,20 @@ I added some simple boilerplate reduction w/ the following functions and macros:
   [[x (* 1/2 (+ (* -1 a) (^ (+ -4 (^ a 2)) 1/2)))]]]]
 ```
 
+### Custom encoders/decoders
+
+The following atoms can be modified to include custom encoders/decoders:
+- `arithmetic`: a map of keywords to mathematica functions e.g. `(swap arithmetic assoc :fi "FactorInteger")`
+- `encoders`: a list of vectors which are `[predicate transform]`
+- `decoders`: a list of vectors which are `[predicate transform]`
+
+In addition, you can call `add-encoder` and `add-decoder` to place your custom encoders and decoders at the front of the list.
+
 ## TODO
 
 - Add specific instructions for different systems and build tools
 - Add example repository
+- Add encoding/decoding examples
 
 ## License
 
