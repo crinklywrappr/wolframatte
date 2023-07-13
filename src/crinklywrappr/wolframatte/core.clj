@@ -276,6 +276,7 @@
 (defmacro intern-fn [nm]
   `(def ~(symbol nm) (wrap-fn ~nm)))
 
+;; TODO: does this have to be a macro?
 (defmacro intern-fns [& names]
   (mapv (fn [x] `(intern-fn ~x)) names))
 
